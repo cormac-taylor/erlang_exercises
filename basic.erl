@@ -137,3 +137,20 @@ mapTree({empty}, _) ->
     {empty};
 mapTree({node, N, LT, RT}, F) ->
     {node, F(N), mapTree(LT, F), mapTree(RT, F)}.
+
+foldlTree(_, {empty}, I) ->
+    I;
+foldlTree(F, {node, N, LT, RT}, I) ->
+    foldlTree(F, RT, foldlTree(F, LT, F(N, I))).
+
+foldrTree(_, {empty}, I) ->
+    I;
+foldrTree(F, {node, N, LT, RT}, I) ->
+    F(N, foldrTree(F, RT, foldrTree(F, LT, I))).
+
+mapGTree({empty}, _) ->
+    {empty};
+mapGTree({node, N, []}, F) ->
+    {node, F(N), []};
+mapGTree({node, N, [H|T]}, F) ->
+    {empty}.
