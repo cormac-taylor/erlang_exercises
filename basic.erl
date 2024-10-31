@@ -148,9 +148,10 @@ foldrTree(_, {empty}, I) ->
 foldrTree(F, {node, N, LT, RT}, I) ->
     F(N, foldrTree(F, RT, foldrTree(F, LT, I))).
 
-mapGTree({empty}, _) ->
-    {empty};
-mapGTree({node, N, []}, F) ->
-    {node, F(N), []};
-mapGTree({node, N, [H|T]}, F) ->
-    {empty}.
+mapGTree({node, N, L}, F) ->
+    {node, F(N), mapGTreeHelper(L, F)}.
+
+mapGTreeHelper([], _) ->
+    [];
+mapGTreeHelper([H|T], F) ->
+    [mapGTree(H, F)|mapGTreeHelper(T, F)].
