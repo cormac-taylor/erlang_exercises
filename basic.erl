@@ -150,7 +150,6 @@ foldrTree(F, {node, N, LT, RT}, I) ->
 
 mapGTree({node, N, L}, F) ->
     {node, F(N), mapGTreeHelper(L, F)}.
-
 mapGTreeHelper([], _) ->
     [];
 mapGTreeHelper([H|T], F) ->
